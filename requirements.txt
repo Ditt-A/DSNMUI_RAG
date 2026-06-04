@@ -1,0 +1,20 @@
+numpy
+pandas
+regex
+rank-bm25
+FlagEmbedding
+transformers>=4.50.0
+accelerate
+torch
+streamlit
+pymupdf
+Pillow
+qwen-vl-utils
+sentencepiece
+protobuf
+# Optional, only if you need OCR precompute/crop worker:
+# paddlepaddle-gpu
+# paddleocr
+fastapi
+uvicorn[standard]
+pydantic
