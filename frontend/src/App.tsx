@@ -18,6 +18,7 @@ import InfoPage from "@/pages/InfoPage";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import "@/styles/site.css";
+import "@/styles/illustrations.css";
 
 const ChatPage = lazy(() => import("@/pages/ChatPage"));
 const titles: Record<string, string> = {

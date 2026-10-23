@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom";
 
-export function Brand({ compact = false }: { compact?: boolean }) {
+export function Brand({
+  compact = false,
+  tagline = false,
+}: {
+  compact?: boolean;
+  tagline?: boolean;
+}) {
   return (
     <Link
       to="/"
@@ -8,9 +14,11 @@ export function Brand({ compact = false }: { compact?: boolean }) {
       aria-label="AMANA — beranda"
     >
       <span className="site-brand-mark" aria-hidden="true">
-        A
+        <img src="/brand/amana-mark.svg" width="64" height="64" alt="" />
       </span>
-      <span>AMANA</span>
+      <span className="site-brand-wordmark">
+        AMANA{tagline && <small>Rujukan syariah untuk UMKM</small>}
+      </span>
     </Link>
   );
 }

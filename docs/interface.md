@@ -2,6 +2,10 @@
 
 Landing page mengimplementasikan rancangan v3: palet emerald, putih hangat, dan sage; hero terpusat; preview chat lebar dengan panel sumber; bagian penjelasan rujukan; contoh pertanyaan; dan footer proyek.
 
+Delapan [ilustrasi khusus](assets/README.md) dipasang sesuai konteks pada hero, penjelasan sumber, contoh pertanyaan, penutup, halaman tentang proyek, dan kondisi chat kosong. PNG asli tersedia dalam paket aset pengguna; website memakai WebP transparan dengan dimensi yang sama. Logo AMANA dibuat sebagai SVG agar tetap tajam pada navbar, footer, dan favicon.
+
+Navbar memiliki menu aktif, perubahan bayangan saat scroll, serta dropdown sumber dokumen yang dapat ditutup dengan Escape atau klik di luar panel. Pada ponsel, sumber rujukan tersedia di menu navigasi bersama tautan halaman.
+
 ## Halaman dan tujuan navigasi
 
 | Rute | Isi |

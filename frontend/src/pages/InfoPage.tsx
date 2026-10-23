@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { LINKS } from "@/lib/site";
+import { Artwork } from "@/components/site/Artwork";
 
 const pages = {
   about: {
@@ -92,9 +93,27 @@ export default function InfoPage({ kind }: { kind: keyof typeof pages }) {
         <Link to="/" className="back-to-home">
           <ArrowLeft size={16} /> Kembali ke beranda
         </Link>
-        <p className="information-label">{page.label}</p>
-        <h1>{page.title}</h1>
-        <p className="information-intro">{page.intro}</p>
+        <div
+          className={
+            kind === "about"
+              ? "information-lead information-lead--illustrated"
+              : "information-lead"
+          }
+        >
+          <div>
+            <p className="information-label">{page.label}</p>
+            <h1>{page.title}</h1>
+            <p className="information-intro">{page.intro}</p>
+          </div>
+          {kind === "about" && (
+            <Artwork
+              name="owner"
+              className="about-owner-art"
+              alt="Ilustrasi pemilik usaha menyiapkan pesanan pelanggan."
+              priority
+            />
+          )}
+        </div>
         <div className="information-sections">
           {page.sections.map(([title, content]) => (
             <section key={title}>

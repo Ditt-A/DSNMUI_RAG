@@ -15,6 +15,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { Reveal } from "@/components/site/Reveal";
 import { ProductPreview } from "@/components/site/ProductPreview";
+import { Artwork } from "@/components/site/Artwork";
 import { chatLink, EXAMPLES, LINKS } from "@/lib/site";
 
 export default function LandingPage() {
@@ -62,6 +63,14 @@ export default function LandingPage() {
                 Lihat cara kerja <ArrowRight size={18} />
               </Link>
             </motion.div>
+            <div className="hero-art-pair" aria-hidden="true">
+              <motion.div className="hero-merchant-art" {...entrance(0.22)}>
+                <Artwork name="merchant" priority />
+              </motion.div>
+              <motion.div className="hero-books-art" {...entrance(0.28)}>
+                <Artwork name="books" priority />
+              </motion.div>
+            </div>
           </div>
           <motion.div {...entrance(0.24)}>
             <ProductPreview />
@@ -99,6 +108,7 @@ export default function LandingPage() {
         >
           <div className="site-container how-grid">
             <Reveal className="source-showcase">
+              <Artwork name="sources" className="source-showcase-art" />
               <div className="source-showcase-card">
                 <div className="source-title-row">
                   <span className="source-file-icon">
@@ -200,6 +210,14 @@ export default function LandingPage() {
                       }
                     >
                       <span className="question-number">0{index + 1}</span>
+                      <Artwork
+                        name={
+                          (["parcels", "partnership", "sources"] as const)[
+                            index
+                          ]
+                        }
+                        className="question-art"
+                      />
                       <span>{example.accordion}</span>
                       <Plus size={18} aria-hidden="true" />
                     </button>
@@ -242,6 +260,7 @@ export default function LandingPage() {
                 Gunakan AMANA untuk menelusuri fatwa DSN-MUI dengan lebih mudah.
               </p>
             </div>
+            <Artwork name="plant" className="closing-plant-art" />
             <Link to="/chat" className="site-button site-button--light">
               Mulai bertanya <ArrowRight size={18} />
             </Link>

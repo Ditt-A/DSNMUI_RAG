@@ -13,6 +13,7 @@ Landing page tersedia di `/`, percakapan di `/chat`. Preview landing page dapat 
 ## Fitur
 
 - Landing page responsif dengan tab contoh percakapan, panel sumber, accordion pertanyaan, dan transisi yang mengikuti preferensi reduced motion.
+- Delapan ilustrasi khusus UMKM dan rujukan, logo AMANA dalam SVG, serta navbar dengan dropdown dokumen. [Lihat aset dan penempatannya](docs/assets/README.md).
 - Chat berbahasa Indonesia dengan filter kategori dokumen dan fokus pertanyaan.
 - Hybrid retrieval: embedding **BGE-M3**, **BM25**, **Reciprocal Rank Fusion**, dan statistical reranker.
 - Jawaban beserta referensi dokumen, halaman, support score, dan metadata proses.

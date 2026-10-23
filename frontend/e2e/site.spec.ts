@@ -1,5 +1,72 @@
 import { expect, test } from "@playwright/test";
 
+test("all eight illustration assets render across their intended pages", async ({
+  page,
+}) => {
+  const assets = new Set<string>();
+  for (const path of ["/", "/about", "/chat"]) {
+    await page.goto(path);
+    const images = page.locator('img[src^="/assets/visuals/"]');
+    await expect(images.first()).toBeAttached();
+    for (const image of await images.all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() =>
+          image.evaluate(
+            (node) =>
+              (node as HTMLImageElement).complete &&
+              (node as HTMLImageElement).naturalWidth > 0,
+          ),
+        )
+        .toBe(true);
+      assets.add((await image.getAttribute("src")) || "");
+    }
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  }
+  expect(assets.size).toBe(8);
+});
+
+test("navigation source menu has valid destinations and closes cleanly", async ({
+  page,
+  isMobile,
+}) => {
+  await page.goto("/");
+  if (isMobile) {
+    await page
+      .getByRole("button", { name: "Buka navigasi", exact: true })
+      .click();
+    const menu = page.getByRole("navigation", {
+      name: "Navigasi seluler",
+      exact: true,
+    });
+    await expect(
+      menu.getByRole("link", { name: "Fatwa DSN-MUI" }),
+    ).toHaveAttribute("href", "https://dsnmui.or.id/kategori/fatwa/");
+    await page.keyboard.press("Escape");
+    await expect(menu).toHaveCount(0);
+  } else {
+    const button = page.getByRole("button", {
+      name: "Sumber dokumen",
+      exact: true,
+    });
+    await button.click();
+    await expect(button).toHaveAttribute("aria-expanded", "true");
+    await expect(
+      page.locator("#nav-source-dropdown").getByRole("link"),
+    ).toHaveCount(3);
+    await page.keyboard.press("Escape");
+    await expect(button).toHaveAttribute("aria-expanded", "false");
+    await expect(button).toBeFocused();
+    await button.click();
+    await page.mouse.click(25, 200);
+    await expect(button).toHaveAttribute("aria-expanded", "false");
+  }
+});
+
 test("landing keeps its content, links, and layout usable", async ({
   page,
 }) => {
