@@ -1,8 +1,0 @@
-[project]
-name = "dsnmui-rag-prototype"
-version = "0.1.0"
-description = "Modular DSN-MUI UMKM RAG prototype converted from notebook v16"
-requires-python = ">=3.10"
-
-[tool.setuptools.packages.find]
-where = ["src"]

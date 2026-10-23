@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dsnmui-rag-prototype"
+version = "0.1.0"
+description = "Modular DSN-MUI UMKM RAG prototype converted from notebook v16"
+requires-python = ">=3.10"
+
+[project.urls]
+Repository = "https://github.com/Ditt-A/DSNMUI_RAG"
+
+[tool.setuptools.packages.find]
+where = ["src"]

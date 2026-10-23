@@ -1,0 +1,7 @@
+-r requirements.txt
+requests
+beautifulsoup4
+gdown
+tqdm
+qdrant-client
+# Install paddleocr and the appropriate paddlepaddle package separately for OCR.

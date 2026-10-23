@@ -1,0 +1,7 @@
+# Tests and API preview only; no torch, transformers, or model downloads.
+fastapi
+httpx
+numpy
+pytest
+regex
+uvicorn[standard]

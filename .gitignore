@@ -1,0 +1,45 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Python environments, caches, and build outputs
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+
+# Frontend dependencies and tooling
+node_modules/
+.vite/
+*.tsbuildinfo
+*.log
+
+# Generated datasets, indexes, model weights, and inference output
+data_dsnmui/
+dsnmui_data/
+dsnmui_rag_precompute*/
+precomputed/
+rag_umkm_test_runs/
+response.json
+*.npy
+*.npz
+*.pkl
+*.safetensors
+*.pt
+*.pth
+*.onnx
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
