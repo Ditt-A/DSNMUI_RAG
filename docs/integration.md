@@ -48,6 +48,8 @@ npm run preview
 
 `npm run build` memeriksa TypeScript lalu menghasilkan `frontend/dist/`. `npm run preview` juga menggunakan proxy lokal dari konfigurasi Vite, tetapi hanya ditujukan untuk mengecek hasil build.
 
+Landing page berada di `/`, sedangkan chat ada di `/chat`. Halaman informasi memakai `/about`, `/privacy`, dan `/terms`. Semua halaman tersebut menggunakan client-side routing. Detail interaksi dan pengujiannya tersedia di [panduan antarmuka](interface.md).
+
 ## Deployment statis
 
 Proxy pada `vite.config.ts` tidak ikut menjadi server dalam hasil build. Untuk hosting produksi:
@@ -56,6 +58,7 @@ Proxy pada `vite.config.ts` tidak ikut menjadi server dalam hasil build. Untuk h
 2. Teruskan `/rag/*` dari origin yang sama ke backend FastAPI.
 3. Jika backend memakai `RAG_API_KEY`, sisipkan header `x-api-key` pada reverse proxy di sisi server. Jangan memasukkan key ke JavaScript frontend.
 4. Tambahkan autentikasi dan pembatasan request di layanan publik; key backend pada proxy bukan autentikasi pengguna.
+5. Atur fallback route frontend ke `index.html` agar refresh langsung pada `/chat`, `/about`, `/privacy`, dan `/terms` tetap membuka aplikasi. Contohnya, gunakan `try_files $uri $uri/ /index.html;` pada location frontend Nginx. Rute `/rag/*` harus ditangani location proxy tersendiri.
 
 Jika backend berjalan di mesin lain, ganti target proxy lokal melalui `RAG_API_URL`. Untuk tunnel demo lihat [FastAPI dan ngrok](deployment.md).
 

@@ -6,11 +6,20 @@ import { Button } from "@/components/ui/button";
 interface AmanaInputProps {
   onSend: (message: string) => void;
   disabled?: boolean;
+  initialValue?: string;
 }
 
-export function AmanaInput({ onSend, disabled }: AmanaInputProps) {
-  const [content, setContent] = useState("");
+export function AmanaInput({
+  onSend,
+  disabled,
+  initialValue = "",
+}: AmanaInputProps) {
+  const [content, setContent] = useState(initialValue);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    setContent(initialValue);
+  }, [initialValue]);
 
   const handleSend = () => {
     if (content.trim() && !disabled) {
@@ -39,6 +48,8 @@ export function AmanaInput({ onSend, disabled }: AmanaInputProps) {
         minRows={1}
         maxRows={6}
         placeholder="Tanyakan sesuatu kepada AMANA..."
+        aria-label="Pertanyaan untuk AMANA"
+        maxLength={2000}
         value={content}
         onChange={(e) => setContent(e.target.value)}
         onKeyDown={handleKeyDown}

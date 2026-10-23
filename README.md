@@ -2,12 +2,17 @@
 
 Prototipe asisten untuk membantu UMKM menelusuri fatwa, pedoman implementasi, dan ta'limat DSN-MUI. **AMANA** menyediakan antarmuka chat berbasis React, sedangkan backend FastAPI menjalankan pipeline Retrieval-Augmented Generation (RAG).
 
+![Landing page AMANA dengan preview percakapan dan panel sumber referensi](docs/images/amana-landing.png)
+
+Landing page tersedia di `/`, percakapan di `/chat`. Preview landing page dapat dicoba tanpa menjalankan model. Lihat [panduan antarmuka dan routing](docs/interface.md).
+
 ![Tampilan prototipe AMANA: percakapan konsultasi DSN-MUI untuk UMKM dengan filter kategori dan opsi visual dalil](docs/images/amana-prototype.png)
 
 *Tampilan prototipe dari [Website-Porto](https://github.com/Ditt-A/Website-Porto/blob/f188a6af30baaa933b503dc71d5dea4c163546bc/public/images/projects/amana.png). Kode frontend diadaptasi dari [sulthonaw/amana-chatbot](https://github.com/sulthonaw/amana-chatbot); frontend dan backend kini tersedia di repo ini.*
 
 ## Fitur
 
+- Landing page responsif dengan tab contoh percakapan, panel sumber, accordion pertanyaan, dan transisi yang mengikuti preferensi reduced motion.
 - Chat berbahasa Indonesia dengan filter kategori dokumen dan fokus pertanyaan.
 - Hybrid retrieval: embedding **BGE-M3**, **BM25**, **Reciprocal Rank Fusion**, dan statistical reranker.
 - Jawaban beserta referensi dokumen, halaman, support score, dan metadata proses.
@@ -24,6 +29,7 @@ DSNMUI_RAG/
 │   │   ├── components/           # Komponen chat dan UI
 │   │   ├── hooks/                # Request chat dan state filter
 │   │   ├── lib/                  # Utility frontend
+│   │   ├── pages/                # Landing, percakapan, dan informasi proyek
 │   │   ├── types/                # Kontrak response RAG
 │   │   └── App.tsx
 │   ├── .env.example              # Target API dan key untuk proxy Vite
@@ -80,7 +86,7 @@ Salin `frontend/.env.example` menjadi `frontend/.env.local`. Samakan `RAG_API_KE
 npm run dev
 ```
 
-Buka <http://localhost:3000>. Dalam mode preview, UI dan dokumentasi API dapat dibuka; endpoint jawaban mengembalikan **503** karena pipeline sengaja tidak diaktifkan. Tidak ada model atau dataset yang diperlukan untuk mode ini.
+Buka <http://localhost:3000> untuk landing page atau <http://localhost:3000/chat> untuk percakapan. Dalam mode preview, UI dan dokumentasi API dapat dibuka; endpoint jawaban mengembalikan **503** karena pipeline sengaja tidak diaktifkan. Tidak ada model atau dataset yang diperlukan untuk mode ini. Memilih contoh pertanyaan mengisi draft di halaman chat dan tidak mengirimkannya otomatis.
 
 ## Mengaktifkan RAG
 
@@ -104,6 +110,7 @@ API key disisipkan oleh server proxy Vite; key tidak ditanam di kode browser. Bu
 | [Penggunaan RAG](docs/usage.md) | Arsitektur, konfigurasi model, Streamlit, CLI, kontrak API, troubleshooting |
 | [Preprocessing](docs/preprocessing.md) | Crawling PDF, OCR, embedding, dan artifact retrieval |
 | [Integrasi frontend/backend](docs/integration.md) | Proxy lokal, environment variable, build, dan deployment statis |
+| [Antarmuka dan routing](docs/interface.md) | Halaman, tujuan tombol, transisi, dan pengujian browser desktop/mobile |
 | [FastAPI dan ngrok](docs/deployment.md) | Menjalankan API dan menguji tunnel demo |
 | [Asal kode dan gambar](docs/sources.md) | Sumber frontend, backend, dan screenshot prototipe |
 
@@ -112,6 +119,7 @@ Validasi tanpa model:
 ```bash
 # Dari frontend/
 npm run build
+npm run test:e2e
 
 # Dari backend/ dengan environment preview aktif
 python -m pytest tests -q

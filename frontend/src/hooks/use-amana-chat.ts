@@ -1,10 +1,12 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { ChatMessage, ChatFilters, RagResponse } from "../types/rag";
 import { toast } from "sonner";
 
 export function useAmanaChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const pendingRequest = useRef<AbortController | null>(null);
+  useEffect(() => () => pendingRequest.current?.abort(), []);
   const [filters, setFilters] = useState<ChatFilters>({
     expectedFocus: "",
     categoryFilter: null,
@@ -18,13 +20,24 @@ export function useAmanaChat() {
 
   const sendMessage = useCallback(
     async (content: string) => {
-      if (!content.trim()) return;
+      if (!content.trim() || pendingRequest.current) return;
+      const controller = new AbortController();
+      pendingRequest.current = controller;
 
-      const userMessageId = Date.now().toString();
-      const assistantMessageId = (Date.now() + 1).toString();
+      const userMessageId = crypto.randomUUID();
+      const assistantMessageId = crypto.randomUUID();
 
       // Add user message and a loading assistant message
-      setMessages((prev) => [...prev, { id: userMessageId, role: "user", content }, { id: assistantMessageId, role: "assistant", content: "", isLoading: true }]);
+      setMessages((prev) => [
+        ...prev,
+        { id: userMessageId, role: "user", content },
+        {
+          id: assistantMessageId,
+          role: "assistant",
+          content: "",
+          isLoading: true,
+        },
+      ]);
 
       setIsLoading(true);
 
@@ -43,10 +56,15 @@ export function useAmanaChat() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
+          signal: controller.signal,
         });
 
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(
+            response.status === 503
+              ? "Layanan jawaban belum tersedia. Silakan coba lagi nanti."
+              : "Pesan belum berhasil diproses. Silakan coba lagi.",
+          );
         }
 
         const data: RagResponse = await response.json();
@@ -72,23 +90,32 @@ export function useAmanaChat() {
           }),
         );
       } catch (error) {
-        console.error("API Error:", error);
-        toast.error("Gagal menghubungi layanan AMANA", {
-          action: {
-            label: "Coba Lagi",
-            onClick: () => sendMessage(content),
-          },
-        });
+        if (controller.signal.aborted) return;
+        toast.error(
+          error instanceof Error && error.message !== "Failed to fetch"
+            ? error.message
+            : "Koneksi ke AMANA belum tersedia. Periksa koneksi Anda dan coba lagi.",
+        );
 
-        setMessages((prev) => prev.filter((msg) => msg.id !== assistantMessageId));
+        setMessages((prev) =>
+          prev.filter((msg) => msg.id !== assistantMessageId),
+        );
       } finally {
-        setIsLoading(false);
+        if (pendingRequest.current === controller) {
+          pendingRequest.current = null;
+          setIsLoading(false);
+        }
       }
     },
     [filters],
   );
 
-  const clearChat = () => setMessages([]);
+  const clearChat = () => {
+    pendingRequest.current?.abort();
+    pendingRequest.current = null;
+    setMessages([]);
+    setIsLoading(false);
+  };
 
   return {
     messages,
