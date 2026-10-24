@@ -1,4 +1,4 @@
-import type { ImgHTMLAttributes } from "react";
+import { useState, type ImgHTMLAttributes } from "react";
 
 const artwork = {
   merchant: {
@@ -52,14 +52,27 @@ export function Artwork({
   name,
   alt = "",
   priority = false,
+  className = "",
+  onLoad,
+  onError,
   ...props
 }: ArtworkProps) {
+  const [loaded, setLoaded] = useState(false);
   return (
     <img
       {...artwork[name]}
       alt={alt}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
+      className={`artwork-image${loaded ? " is-loaded" : ""} ${className}`}
+      onLoad={(event) => {
+        setLoaded(true);
+        onLoad?.(event);
+      }}
+      onError={(event) => {
+        setLoaded(true);
+        onError?.(event);
+      }}
       {...props}
     />
   );

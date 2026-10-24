@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+} from "motion/react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -42,6 +48,12 @@ export function SiteHeader() {
   const sourceToggle = useRef<HTMLButtonElement>(null);
   const location = useLocation();
   const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const scrollProgress = useSpring(scrollYProgress, {
+    stiffness: 180,
+    damping: 32,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     setOpen(false);
@@ -116,7 +128,10 @@ export function SiteHeader() {
                   initial={{ opacity: 0, y: reduced ? 0 : 6 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: reduced ? 0 : 4 }}
-                  transition={{ duration: reduced ? 0 : 0.16 }}
+                  transition={{
+                    duration: reduced ? 0 : 0.22,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
                 >
                   <p>Dokumen DSN-MUI</p>
                   {sources.map(({ name, description, href, Icon }) => (
@@ -160,7 +175,19 @@ export function SiteHeader() {
             aria-controls="mobile-navigation"
             aria-label={open ? "Tutup navigasi" : "Buka navigasi"}
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={open ? "close" : "menu"}
+                className="nav-toggle-symbol"
+                aria-hidden="true"
+                initial={{ opacity: 0, rotate: reduced ? 0 : -35 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: reduced ? 0 : 35 }}
+                transition={{ duration: reduced ? 0 : 0.12 }}
+              >
+                {open ? <X size={22} /> : <Menu size={22} />}
+              </motion.span>
+            </AnimatePresence>
           </button>
         </div>
       </div>
@@ -205,6 +232,11 @@ export function SiteHeader() {
           </motion.nav>
         )}
       </AnimatePresence>
+      <motion.div
+        className="site-scroll-progress"
+        aria-hidden="true"
+        style={{ scaleX: reduced ? scrollYProgress : scrollProgress }}
+      />
     </header>
   );
 }

@@ -62,7 +62,18 @@ export function ProductPreview() {
               document.getElementById(`tab-${EXAMPLES[next].id}`)?.focus();
             }}
           >
-            {item.tab}
+            {active === index && (
+              <motion.span
+                className="preview-tab-indicator"
+                layoutId="preview-tab-indicator"
+                transition={
+                  reduced
+                    ? { duration: 0 }
+                    : { type: "spring", stiffness: 420, damping: 36 }
+                }
+              />
+            )}
+            <span>{item.tab}</span>
           </button>
         ))}
       </div>
@@ -122,13 +133,31 @@ export function ProductPreview() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={example.id}
-                initial={{ opacity: 0, y: reduced ? 0 : 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: reduced ? 0 : 0.16 }}
+                initial={{ opacity: 0, x: reduced ? 0 : 7 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: reduced ? 0 : -5 }}
+                transition={{ duration: reduced ? 0 : 0.2 }}
               >
-                <p className="preview-question">{example.question}</p>
-                <div className="preview-answer-row">
+                <motion.p
+                  className="preview-question"
+                  initial={reduced ? false : { opacity: 0, y: 7 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: reduced ? 0 : 0.28,
+                    delay: reduced ? 0 : 0.03,
+                  }}
+                >
+                  {example.question}
+                </motion.p>
+                <motion.div
+                  className="preview-answer-row"
+                  initial={reduced ? false : { opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: reduced ? 0 : 0.32,
+                    delay: reduced ? 0 : 0.11,
+                  }}
+                >
                   <span className="preview-avatar" aria-hidden="true">
                     A
                   </span>
@@ -150,7 +179,7 @@ export function ProductPreview() {
                       </span>
                     </button>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             </AnimatePresence>
           </div>
@@ -177,10 +206,13 @@ export function ProductPreview() {
               id="preview-source"
               className="preview-source"
               aria-label="Sumber referensi contoh"
-              initial={{ opacity: 0, x: reduced ? 0 : 8 }}
+              initial={{ opacity: 0, x: reduced ? 0 : 16 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: reduced ? 0 : 0.18 }}
+              transition={{
+                duration: reduced ? 0 : 0.25,
+                ease: [0.22, 1, 0.36, 1],
+              }}
               onKeyDown={(event) => {
                 if (event.key === "Escape") {
                   setSourceOpen(false);
@@ -201,27 +233,36 @@ export function ProductPreview() {
                   <X size={17} />
                 </button>
               </div>
-              <div className="preview-source-content">
-                <div className="source-title-row">
-                  <span className="source-file-icon">
-                    <FileText size={22} />
-                  </span>
-                  <div>
-                    <span>Fatwa DSN-MUI</span>
-                    <strong>[S1] {example.title}</strong>
-                  </div>
-                </div>
-                <p>{example.description}</p>
-                <a
-                  href={example.href}
-                  className="source-document-link"
-                  target="_blank"
-                  rel="noreferrer"
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={example.id}
+                  className="preview-source-content"
+                  initial={{ opacity: 0, y: reduced ? 0 : 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: reduced ? 0 : 0.16 }}
                 >
-                  <ExternalLink size={16} /> Buka dokumen sumber{" "}
-                  <ArrowRight size={15} />
-                </a>
-              </div>
+                  <div className="source-title-row">
+                    <span className="source-file-icon">
+                      <FileText size={22} />
+                    </span>
+                    <div>
+                      <span>Fatwa DSN-MUI</span>
+                      <strong>[S1] {example.title}</strong>
+                    </div>
+                  </div>
+                  <p>{example.description}</p>
+                  <a
+                    href={example.href}
+                    className="source-document-link"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ExternalLink size={16} /> Buka dokumen sumber{" "}
+                    <ArrowRight size={15} />
+                  </a>
+                </motion.div>
+              </AnimatePresence>
             </motion.aside>
           )}
         </AnimatePresence>

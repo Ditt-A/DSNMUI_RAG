@@ -28,13 +28,14 @@ Pada chat, tombol Beranda kembali ke landing page. Pengaturan membuka filter per
 
 ## Transisi
 
-- Hero: masuk dengan opacity dan perpindahan vertikal 12 px, stagger pendek antarelemen.
-- Bagian halaman: reveal satu kali ketika memasuki viewport.
-- Pergantian tab: crossfade singkat pada isi preview, tanpa request inference.
-- Panel sumber: opacity dan perpindahan kecil; lebar area chat menyesuaikan secara halus pada desktop.
-- Accordion dan menu ponsel: perubahan tinggi dan opacity.
-- Perpindahan halaman: fade singkat, diikuti pergeseran vertikal 5 px.
-- Hover CTA: perubahan warna dan gerak panah kecil.
+- Hero: masuk dengan opacity dan perpindahan vertikal 12 px; ilustrasi menyelesaikan gerakan masuk satu kali setelah gambar dimuat.
+- Bagian halaman: reveal dari bawah atau samping saat memasuki viewport, dengan urutan pendek pada daftar manfaat, pertanyaan, dokumen, dan kolom footer.
+- Pergantian tab: indikator aktif bergeser memakai spring; pertanyaan, jawaban, dan isi referensi berganti dengan fade dan perpindahan kecil, tanpa request inference.
+- Panel sumber: masuk dari samping; lebar area chat menyesuaikan secara halus pada desktop.
+- Accordion: perubahan tinggi diikuti masuknya isi jawaban; ilustrasi dan ikon merespons hover atau fokus.
+- Navbar: dropdown dan tautan menu masuk berurutan, ikon menu berganti, serta garis tipis mengikuti progres scroll.
+- Perpindahan halaman: fade 220 ms dengan gerak masuk 8 px dan keluar 3 px.
+- Gambar: fade setelah dimuat; kartu sumber, tombol, dan ikon merespons hover dengan gerakan singkat.
 
 Pengaturan `prefers-reduced-motion` menghentikan animasi perpindahan dan scroll halus. Semua tombol dan tautan memiliki fokus keyboard yang terlihat.
 

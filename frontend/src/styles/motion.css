@@ -1,0 +1,255 @@
+/* Short, deliberate motion; decorative layers never block pointer input. */
+.site-scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #397b60;
+  opacity: 0.65;
+  transform-origin: left;
+  pointer-events: none;
+}
+.nav-toggle-symbol {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+}
+.site-brand-mark {
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.site-brand:hover .site-brand-mark {
+  transform: rotate(-3deg) scale(1.035);
+}
+.nav-source-dropdown > a,
+.mobile-nav-content > a {
+  animation: nav-item-appear 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.nav-source-dropdown > a:nth-of-type(1),
+.mobile-nav-content > a:nth-of-type(1) {
+  animation-delay: 25ms;
+}
+.nav-source-dropdown > a:nth-of-type(2),
+.mobile-nav-content > a:nth-of-type(2) {
+  animation-delay: 65ms;
+}
+.nav-source-dropdown > a:nth-of-type(3),
+.mobile-nav-content > a:nth-of-type(3) {
+  animation-delay: 105ms;
+}
+.mobile-nav-content > a:nth-of-type(4) {
+  animation-delay: 135ms;
+}
+.mobile-nav-content > a:nth-of-type(5) {
+  animation-delay: 165ms;
+}
+.mobile-nav-content > a:nth-of-type(6) {
+  animation-delay: 195ms;
+}
+.mobile-nav-content > a {
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+.nav-source-icon {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    background 180ms ease;
+}
+.nav-source-dropdown > a:hover .nav-source-icon {
+  transform: translateY(-2px);
+  background: #e1eee5;
+}
+.artwork-image {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.artwork-image.is-loaded {
+  opacity: 1;
+}
+.hero-merchant-art .artwork-image.is-loaded {
+  animation: artwork-settle 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-books-art .artwork-image.is-loaded {
+  animation: artwork-settle 1000ms cubic-bezier(0.22, 1, 0.36, 1) 80ms both;
+}
+.preview-tabs button {
+  position: relative;
+  isolation: isolate;
+}
+.preview-tab-indicator {
+  position: absolute;
+  height: 2px;
+  left: 15px;
+  right: 15px;
+  bottom: -5px;
+  border-radius: 2px;
+  background: #4b8b70;
+  pointer-events: none;
+}
+.preview-window {
+  transition:
+    grid-template-columns 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms ease;
+}
+.preview-reopen-source > svg {
+  transition: transform 220ms ease;
+}
+.preview-reopen-source[aria-expanded="false"] > svg {
+  transform: rotate(180deg);
+}
+.preview-citation {
+  transition: color 180ms ease;
+}
+.preview-citation > span > svg {
+  transition: transform 200ms ease;
+}
+.preview-citation:hover > span > svg {
+  transform: translateX(3px);
+}
+.preview-composer {
+  transition: background 180ms ease;
+}
+.preview-composer:focus-within {
+  background: #f1f7f2;
+}
+.preview-composer button > svg {
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.preview-composer button:hover > svg {
+  transform: translate(1px, -2px);
+}
+.document-types a > svg:first-child {
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.document-types a:hover > svg:first-child {
+  transform: translateY(-3px);
+}
+.source-showcase-card {
+  transition:
+    transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms ease;
+}
+.source-showcase-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px #143f2515;
+}
+.source-showcase-art {
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.source-showcase:hover .source-showcase-art {
+  transform: translateY(-3px) rotate(-1.5deg);
+}
+.benefit-list li > span {
+  transition:
+    transform 220ms ease,
+    background 220ms ease;
+}
+.benefit-list li:hover > span {
+  transform: translateY(-2px);
+  background: #e0eee4;
+}
+.question-item {
+  transition:
+    border-color 200ms ease,
+    box-shadow 240ms ease;
+}
+.question-item:hover,
+.question-item:focus-within {
+  box-shadow: 0 5px 18px #143c2408;
+}
+.question-art {
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.question-item:hover .question-art,
+.question-item:focus-within .question-art {
+  transform: translateY(-2px) rotate(-2deg) scale(1.035);
+}
+.question-item.is-open .question-number {
+  background: #d8e9dd;
+}
+.question-number {
+  transition:
+    background 200ms ease,
+    color 200ms ease;
+}
+.question-answer a > svg {
+  transition: transform 180ms ease;
+}
+.question-answer a:hover > svg {
+  transform: translateX(4px);
+}
+.site-button {
+  transition:
+    background 200ms ease,
+    border-color 200ms ease,
+    box-shadow 240ms ease,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.site-button:hover {
+  transform: translateY(-2px);
+}
+.site-button:active {
+  transform: translateY(0) scale(0.98);
+}
+.closing-banner > .site-button {
+  transition:
+    background 200ms ease,
+    box-shadow 240ms ease,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.footer-main nav > a,
+.footer-bottom a {
+  transition: color 180ms ease;
+}
+.footer-main nav > a > svg:last-child,
+.footer-bottom a > svg {
+  transition: transform 180ms ease;
+}
+.footer-main nav > a:hover > svg:last-child,
+.footer-bottom a:hover > svg {
+  transform: translate(1px, -1px);
+}
+@keyframes nav-item-appear {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes artwork-settle {
+  0% {
+    transform: translateY(7px);
+  }
+  65% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .site-brand:hover .site-brand-mark,
+  .source-showcase-card:hover,
+  .source-showcase:hover .source-showcase-art,
+  .question-item:hover .question-art,
+  .question-item:focus-within .question-art,
+  .site-button:hover,
+  .site-button:active,
+  .document-types a:hover > svg:first-child,
+  .benefit-list li:hover > span,
+  .nav-source-dropdown > a:hover .nav-source-icon {
+    transform: none;
+  }
+}

@@ -17,6 +17,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { ProductPreview } from "@/components/site/ProductPreview";
 import { Artwork } from "@/components/site/Artwork";
 import { chatLink, EXAMPLES, LINKS } from "@/lib/site";
+import { staggerItem } from "@/lib/motion";
 
 export default function LandingPage() {
   const [expanded, setExpanded] = useState<number | null>(null);
@@ -82,21 +83,36 @@ export default function LandingPage() {
               <span />
             </div>
             <div className="document-types">
-              <a href={LINKS.fatwa} target="_blank" rel="noreferrer">
+              <motion.a
+                variants={staggerItem}
+                href={LINKS.fatwa}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FileText />
                 Fatwa
                 <ArrowUpRight className="document-type-arrow" />
-              </a>
-              <a href={LINKS.pedoman} target="_blank" rel="noreferrer">
+              </motion.a>
+              <motion.a
+                variants={staggerItem}
+                href={LINKS.pedoman}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <BookOpen />
                 Pedoman implementasi
                 <ArrowUpRight className="document-type-arrow" />
-              </a>
-              <a href={LINKS.talimat} target="_blank" rel="noreferrer">
+              </motion.a>
+              <motion.a
+                variants={staggerItem}
+                href={LINKS.talimat}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <FileText />
                 Ta’limat
                 <ArrowUpRight className="document-type-arrow" />
-              </a>
+              </motion.a>
             </div>
           </Reveal>
         </section>
@@ -107,7 +123,7 @@ export default function LandingPage() {
           aria-labelledby="how-title"
         >
           <div className="site-container how-grid">
-            <Reveal className="source-showcase">
+            <Reveal className="source-showcase" direction="left">
               <Artwork name="sources" className="source-showcase-art" />
               <div className="source-showcase-card">
                 <div className="source-title-row">
@@ -129,7 +145,7 @@ export default function LandingPage() {
                 </a>
               </div>
             </Reveal>
-            <Reveal className="how-copy" delay={0.07}>
+            <Reveal className="how-copy" direction="right" delay={0.07}>
               <h2 id="how-title">
                 Pahami jawabannya.
                 <br />
@@ -140,7 +156,7 @@ export default function LandingPage() {
                 untuk dibaca kembali.
               </p>
               <ul className="benefit-list">
-                <li>
+                <motion.li variants={staggerItem}>
                   <span>
                     <MessageCircle size={22} />
                   </span>
@@ -148,8 +164,8 @@ export default function LandingPage() {
                     <h3>Pertanyaan dalam bahasa sehari-hari</h3>
                     <p>Sampaikan pertanyaan sesuai kebutuhan usaha Anda.</p>
                   </div>
-                </li>
-                <li>
+                </motion.li>
+                <motion.li variants={staggerItem}>
                   <span>
                     <FileText size={22} />
                   </span>
@@ -160,8 +176,8 @@ export default function LandingPage() {
                       ta’limat.
                     </p>
                   </div>
-                </li>
-                <li>
+                </motion.li>
+                <motion.li variants={staggerItem}>
                   <span>
                     <Search size={22} />
                   </span>
@@ -171,7 +187,7 @@ export default function LandingPage() {
                       Baca dokumen aslinya untuk memahami ketentuan secara utuh.
                     </p>
                   </div>
-                </li>
+                </motion.li>
               </ul>
             </Reveal>
           </div>
@@ -196,7 +212,8 @@ export default function LandingPage() {
             </div>
             <div className="question-list">
               {EXAMPLES.map((example, index) => (
-                <div
+                <motion.div
+                  variants={staggerItem}
                   className={`question-item${expanded === index ? " is-open" : ""}`}
                   key={example.id}
                 >
@@ -237,16 +254,23 @@ export default function LandingPage() {
                           ease: [0.22, 1, 0.36, 1],
                         }}
                       >
-                        <div>
+                        <motion.div
+                          initial={reduced ? false : { opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: reduced ? 0 : 0.22,
+                            delay: reduced ? 0 : 0.06,
+                          }}
+                        >
                           <p>{example.explanation}</p>
                           <Link to={chatLink(example.question)}>
                             Gunakan pertanyaan ini <ArrowRight size={16} />
                           </Link>
-                        </div>
+                        </motion.div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               ))}
             </div>
           </Reveal>

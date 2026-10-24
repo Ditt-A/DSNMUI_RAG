@@ -19,6 +19,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import "@/styles/site.css";
 import "@/styles/illustrations.css";
+import "@/styles/motion.css";
 
 const ChatPage = lazy(() => import("@/pages/ChatPage"));
 const titles: Record<string, string> = {
@@ -59,10 +60,13 @@ function AppRoutes() {
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={location.pathname}
-          initial={{ opacity: 0, y: reduced ? 0 : 5 }}
+          initial={{ opacity: 0, y: reduced ? 0 : 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: reduced ? 0 : 0.18 }}
+          exit={{ opacity: 0, y: reduced ? 0 : -3 }}
+          transition={{
+            duration: reduced ? 0 : 0.22,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           <PageEffects pathname={location.pathname} hash={location.hash} />
           <Suspense

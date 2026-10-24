@@ -4,6 +4,9 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { LINKS } from "@/lib/site";
 import { Artwork } from "@/components/site/Artwork";
+import { Reveal } from "@/components/site/Reveal";
+import { motion } from "motion/react";
+import { staggerItem } from "@/lib/motion";
 
 const pages = {
   about: {
@@ -114,14 +117,14 @@ export default function InfoPage({ kind }: { kind: keyof typeof pages }) {
             />
           )}
         </div>
-        <div className="information-sections">
+        <Reveal className="information-sections" stagger={0.08}>
           {page.sections.map(([title, content]) => (
-            <section key={title}>
+            <motion.section key={title} variants={staggerItem}>
               <h2>{title}</h2>
               <p>{content}</p>
-            </section>
+            </motion.section>
           ))}
-        </div>
+        </Reveal>
         <div className="information-actions">
           <Link to="/chat" className="site-button">
             Buka AMANA <ArrowRight size={17} />
